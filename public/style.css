@@ -1,0 +1,320 @@
+/* 変数定義:g=金,a=アクセント,sss~c=各ランクの色*/
+:root{
+    --g: #d4af37;
+    --a: red;
+    --bg: #1e1e1e;;
+    --sss: #fffacd;
+    --s: #f08080;
+    --aa: #e9af4b;
+    --b: #76c7c0;
+    --c: #87ceeb;
+}
+
+body{
+    background: var(--bg);
+    color: #fff;
+    font-family: sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#ui{
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+}
+
+.hpc{ /*HPコンテナ*/
+    text-align: center;
+    width: 45%;
+    }
+
+.hpb{ /*HPバー外枠*/
+    height: 20px; background: #444;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 5px;
+  }
+
+.hpf{ /*HP中身(Fill)*/
+    height: 100%;
+    background: #2ecc71;
+    transition: width .5s;
+    width: 100%;
+    }
+
+.stg{ /*舞台情報*/
+    text-align: center;
+    color: var(--g);
+    font-weight: bold;
+    margin: 10px 0;
+    }
+
+.hand{ /*手札エリア*/
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 5px 0;
+    min-height: 120px;
+    padding-top: 10px;
+    }
+
+.cd{ /*カード(Card)*/
+    width: 70px;
+    height: 105px;
+    background: #fff;
+    color: #333;
+    border-radius: 4px;
+    border: 2px solid #555;
+    position: relative;
+    cursor: pointer;
+    transition: transform .2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cpu{ /*CPUカード用*/
+    cursor: default;
+    background: #eee;
+    }
+
+.sel{/*選択中(Selected)*/
+    border: 4px solid var(--a);
+    transform: translateY(-10px);
+    }
+
+.hl{/*舞台一致(Highlight)*/
+    border-color: var(--g);
+    box-shadow:0 0 10px var(--g);
+    background:#fffdf0;
+    }
+
+.ml{/*月ラベル(Month Label)*/
+    font-size:1.1rem;
+    font-weight:bold;
+    }
+
+.tl{/*種類ラベル(Type Label)*/
+  font-size:0.6rem;
+  color:#666;
+  }
+
+#c-area{
+    width: 100%;
+    text-align: center;
+     padding:10px 0;
+   }
+
+#log{
+    width: 90%;
+    max-width: 500px;
+    height: 100px;
+    background: #000;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: .9rem;
+    overflow-y: auto;
+    color: #ddd;
+    border: 1px solid #333;
+}
+
+#ctrl{
+    margin:15px 0;
+    display: flex;
+    gap: 10px;
+  }
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+button:disabled{
+    opacity:0.3;
+    cursor: not-allowed;
+  }
+
+.btn-r{/*引直ボタン*/
+  background: #555;
+  color: #fff;
+  }
+
+.btn-a{ /*攻撃ボタン*/
+  background: red;
+  color: #fff;
+  }
+
+/*役ランク別色付け*/
+.r-sss{
+  color: var(--sss);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.r-s{
+  color: var(--s);
+  font-weight: bold;
+}
+
+.r-a{
+  color: var(--aa);
+  font-weight: bold;
+}
+.r-b{
+  color: var(--b);
+}
+
+.r-c{
+  color: var(--c);
+}
+
+
+/*役一覧の背景*/
+#rule-modal{
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+/*役一覧の中*/
+#rule-content{
+  background: #252525;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid var(--g);
+  width: 80%;
+  max-width: 400px;
+  color: #ccc;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#rule-content table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#rule-content td{
+  padding: 8px 5px;
+  border-bottom: 1px solid #444;
+  font-size: 0.9rem;
+}
+
+.btn-rule{
+    background: #444;
+    color: #fff;
+}
+
+.btn-close{
+    margin-top: 15px;
+    width: 100%;
+}
+
+.rule-text{
+    text-align: left;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #eee;
+}
+
+
+.tab-menu{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tab-menu button{
+  flex: 1;
+  padding: 10px;
+  background: #444;
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.tab-menu button:hover{
+  background: #666;
+}
+
+.tab-body {
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.rule-text::-webkit-scrollbar{
+  width: 6px;
+}
+.rule-text::-webkit-scrollbar-thumb{
+  background: #555;
+  border-radius: 3px;
+}
+
+.rule-text h3{
+  color:var(--g);
+  border-bottom:2px solid var(--g);
+  margin-bottom:15px;
+}
+
+.rule-text h4{
+  color:var(--aa);
+  margin:15px 0 5px 0;
+  border-left:3px solid var(--aa);
+  padding-left:8px;
+}
+
+.rule-text p{
+  margin:5px 0 10px 0;
+ }
+.rule-text b{
+  color:#fff;
+}
+#tab-yaku table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+
+#hd-t{
+  color:var(--g);
+  font-size:2.5rem;
+  text-shadow: 2px 2px #000;
+}
+
+#level{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  width:200px;
+}
+#begi{
+  background:#555;
+}
+#inter{
+  background:#8b4513;
+}
+#adva{
+  background:#b22222;
+}
+
+#game-screen{
+  display:none;
+}

@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>花札バトル TCB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="ui">
+        <div class="hpc">OPP: <span id="chp-v">20</span>
+            <div class="hpb"><div id="chp-f" class="hpf"></div></div>
+        </div>
+        <div class="hpc">YOU: <span id="php-v">20</span>
+            <div class="hpb"><div id="php-f" class="hpf"></div></div>
+        </div>
+    </div>
+
+    <div class="stg">舞台: <span id="fm-n">--</span> | 山札: <span id="dc">--</span></div>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 10px; width: 100%; max-width: 500px; justify-content: center;">
+          <button onclick="toggleRuleModal(); switchTab('tab-how');" class="btn-rule" style="flex: 1;">遊び方</button>
+          <button onclick="toggleRuleModal(); switchTab('tab-yaku');" class="btn-rule" style="flex: 1;">役一覧</button>
+      </div>
+
+      <div id="rule-modal" onclick="toggleRuleModal()">
+        <div id="rule-content" onclick="event.stopPropagation()">
+
+            <div class="tab-menu">
+                <button onclick="switchTab('tab-how')">遊び方</button>
+                <button onclick="switchTab('tab-yaku')">役一覧</button>
+            </div>
+
+            <div id="tab-yaku" class="tab-body">
+      <h3>役一覧（3枚を組み合わせて作る）</h3>
+      <table>
+          <thead>
+              <tr style="border-bottom: 2px solid var(--g); color: var(--g);">
+                  <th>役名</th>
+                  <th>条件</th>
+                  <th>点数</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr class="r-sss">
+                  <td>月下無双</td>
+                  <td><b>舞台月</b>が3枚</td>
+                  <td>10点+貫通</td>
+              </tr>
+              <tr class="r-s">
+                  <td>三光</td>
+                  <td>光札(light)が3枚</td>
+                  <td>6点</td>
+              </tr>
+              <tr class="r-a">
+                  <td>猪鹿蝶</td>
+                  <td>6・7・10月のタネ</td>
+                  <td>5点</td>
+              </tr>
+              <tr class="r-a">
+                  <td>表菅原</td>
+                  <td>1光・2タネ・3光</td>
+                  <td>5点</td>
+              </tr>
+              <tr class="r-a">
+                  <td>短冊役</td>
+                  <td>赤短(123) or 青短(6910)</td>
+                  <td>5点</td>
+              </tr>
+              <tr class="r-b">
+                  <td>花見酒</td>
+                  <td>3月光 + 9月タネ</td>
+                  <td>4点</td>
+              </tr>
+              <tr class="r-b">
+                  <td>月見酒</td>
+                  <td>8月光 + 9月タネ</td>
+                  <td>4点</td>
+              </tr>
+              <tr class="r-b">
+                  <td>三つ揃い</td>
+                  <td>同じ月が3枚（舞台以外）</td>
+                  <td>3点</td>
+              </tr>
+              <tr class="r-b">
+                  <td>三丁</td>
+                  <td>タネ or 短冊が3枚</td>
+                  <td>3点</td>
+              </tr>
+              <tr class="r-c">
+                  <td>繋ぎ</td>
+                  <td>タネ or 短冊が2枚</td>
+                  <td>2点</td>
+              </tr>
+              <tr class="r-d">
+                  <td>カス</td>
+                  <td>カス(kasu)が3枚</td>
+                  <td>1点</td>
+              </tr>
+          </tbody>
+      </table>
+      <p>画面中央に表示されている「舞台月」と同じ月のカードを出すと、1枚につき +1点 のボーナスがつきます。</p>
+
+  </div>
+
+
+            <div id="tab-how" class="tab-body" style="display:none;">
+    <div class="rule-text">
+        <h3>基本ルール解説</h3>
+        <p>このゲームは、伝統的な花札の要素を取り入れた「3枚のカードで役を作る」対戦型カードバトルです。</p>
+
+        <h4>1.勝利条件</h4>
+        <p>あなたのHP（20）がなくなる前に、カードを組み合わせて役を作り、CPUのHPを 0 にすれば勝利です。</p>
+
+        <h4>2.カードの見方</h4>
+        <p>各カードには2つの重要な要素があります。</p>
+        <p>
+          <b>月（数字）:</b>
+          1月〜12月まであります。同じ月のカードを揃えるのが基本です。
+        </p>
+
+        <p>
+          <b>カードの種類（ラベル）:</b>
+          <br>
+            ・<b>光 (light):</b>
+            最も強力な札。
+            <br>
+            ・<b>タネ (tane):</b>
+            動物などが描かれた札。
+            <br>
+            ・<b>短 (tan):</b>
+            短冊が描かれた札。
+            <br>
+            ・<b>カス (kasu):</b>
+            一般的な札。
+          </p>
+
+        <h4>3.バトルの流れ</h4>
+        <p>
+          <b>カードを選ぶ:</b>
+           手札から「勝負に出す3枚」を選びます。
+         </p>
+        <p>
+          <b>引き直し（戦略）:</b>
+          手札が悪い場合、いらないカードを選んで「最大5枚引き直し」ができます。（1ターンに1回まで）
+          <br>
+        <small>※引き直しを行うと、そのターンはもう引き直しができません。</small>
+      </p>
+
+        <p>
+          <b>勝負:</b>
+          「勝負！」ボタンを押すと、あなたとCPUの役が比較されます。
+        </p>
+
+        <h4>4.ダメージ計算方法</h4>
+        <p>
+          <b>基本ルール:</b>
+          (自分の役の点数) - (相手の役の点数) が相手へのダメージになります。
+        </p>
+
+        <p>
+          <b>反撃:</b>
+          もし相手の役の方が強かった場合、差分が自分へのダメージになります。
+        </p>
+        <p>
+          <b>舞台ボーナス:</b>
+          画面中央に表示されている「舞台月」と同じ月のカードを出すと、1枚につき
+          <b>+1点</b> のボーナスがつきます。
+        </p>
+        <p>
+          <b>貫通（月下無双のみ）:</b>
+          最強役「月下無双」は相手の防御を無視して、10ダメージをそのまま与えます。
+        </p>
+
+        <h4>5.戦略のアドバイス</h4>
+        <p>
+          <b>舞台（当たり月）を狙え！:</b>
+          役がなくても、舞台月のカードを混ぜるだけでダメージを底上げしたり、相手の攻撃を軽減したりできます。
+        </p>
+
+        <p>
+          <b>酒役はコスパ最強:</b>
+          「3月の光」や「8月の光」に「9月のタネ（菊に盃）」を合わせるだけで、高得点の「花見酒/月見酒」になります。
+        </p>
+
+        <p>
+          <b>猪鹿蝶を覚えよう:</b>
+          6月・7月・10月の「タネ」を揃える強力な役です。カードに付いているラベル（tane）に注目しましょう。
+        </p>
+    </div>
+</div>
+
+            <button onclick="toggleRuleModal()" class="btn-close">閉じる</button>
+        </div>
+    </div>
+
+    <div id="c-area">
+      <div id="c-h" class="hand"></div>
+    </div>
+
+    <div id="log">準備完了</div>
+
+    <div id="p-area">
+      <div id="p-h" class="hand"></div>
+   </div>
+
+    <div id="ctrl">
+
+        <button class="btn-r" id="r-btn" onclick="redraw()">最大五枚引き直し</button>
+        <button class="btn-a" id="a-btn" onclick="executeAttack()">勝負！</button>
+
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

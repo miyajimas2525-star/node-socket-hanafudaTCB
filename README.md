@@ -34,7 +34,7 @@ Fisher–Yatesシャッフル: デッキのシャッフルには偏りのないF
 
 実行方法
 # リポジトリをクローン
-git clone [リポジトリURL]
+git clone [[リポジトリURL](https://github.com/miyajimas2525-star/node-socket-hanafudaTCB/tree/main)]
 
 # 依存関係のインストール
 npm install
